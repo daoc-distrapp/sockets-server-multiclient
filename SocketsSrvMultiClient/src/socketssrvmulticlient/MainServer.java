@@ -11,23 +11,17 @@ import java.net.Socket;
  */
 public class MainServer {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        try {
-            ServerSocket server  = new ServerSocket(8888);
-            
-            while(true) {
-                System.out.println("Esperando cliente...");
-                Socket socket = server.accept();
-                System.out.println("Cliente conectado...");
-                new ManejaCliente(socket).start();
-            }
-            
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
+	public static void main(String[] args) {
+		try (ServerSocket server = new ServerSocket(8888)) {
+			while (true) {
+				System.out.println("Esperando cliente...");
+				Socket socket = server.accept();
+				System.out.println("Cliente conectado: "+ socket.getRemoteSocketAddress());
+				new ManejaCliente(socket).start();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
     
 }

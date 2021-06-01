@@ -9,6 +9,9 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+/**
+* @author dordonez@ute.edu.ec
+*/
 @SuppressWarnings("serial")
 public class GuiCliente extends JFrame {
 

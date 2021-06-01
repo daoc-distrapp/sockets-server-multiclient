@@ -11,6 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+* @author dordonez@ute.edu.ec
+*/
 @SuppressWarnings("serial")
 public class SendMsgWidget extends JPanel {
 	private JTextField outMsg;

@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author dordonez@ute.edu.ec
  */
 public class ManejaCliente extends Thread {
@@ -31,18 +30,17 @@ public class ManejaCliente extends Thread {
     public void run() {
         String msg;
         try {
-            out.println("Conectado al Server. finalice con EXIT");
+            out.println("Finalice con EXIT");
             while(in.hasNextLine()) {
                 msg = in.nextLine();
                 System.out.println("Mensaje recibido: " + msg);
-                if(msg.contains("EXIT")) {
-                    out.println("CLOSE:");
+                out.println("ECHO: " + msg);
+                if(msg.equalsIgnoreCase("exit")) {
                     break;
-                } else {
-                    out.println("ECHO: " + msg);
                 }
             }
             client.close();
+            System.out.println("Cliente desconectado: " + client.getRemoteSocketAddress());
         } catch (IOException ex) {
             Logger.getLogger(ManejaCliente.class.getName()).log(Level.SEVERE, null, ex);
         }

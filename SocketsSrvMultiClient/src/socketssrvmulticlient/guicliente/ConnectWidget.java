@@ -4,14 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.Socket;
-import java.util.concurrent.ExecutionException;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
+/**
+* @author dordonez@ute.edu.ec
+*/
 @SuppressWarnings("serial")
 public class ConnectWidget extends JPanel {
 	private JButton connect;

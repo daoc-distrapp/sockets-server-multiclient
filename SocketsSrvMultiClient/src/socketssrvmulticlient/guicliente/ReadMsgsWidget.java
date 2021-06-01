@@ -9,6 +9,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 
+/**
+* @author dordonez@ute.edu.ec
+*/
 @SuppressWarnings("serial")
 public class ReadMsgsWidget extends JPanel {
 	private JTextArea inMsgs;
