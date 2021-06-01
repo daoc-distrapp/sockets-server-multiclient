@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.Socket;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -17,16 +18,15 @@ public class ConnectWidget extends JPanel {
 	private Socket socket;
 	private String server;
 	private int port;
-	private GuiCliente gui;
+	private ConnectedCallBack callback;
 
-	public ConnectWidget(GuiCliente gui) {
-		this.gui = gui;
+	public ConnectWidget(ConnectedCallBack callback) {
+		this.callback = callback;
 		createGui();
 	}
 
-	public ConnectWidget(GuiCliente gui, String server, int port) {
-		this.gui = gui;
-		createGui();
+	public ConnectWidget(String server, int port, ConnectedCallBack callback) {
+		this(callback);
 		initGui(server, port);
 	}
 
@@ -66,14 +66,10 @@ public class ConnectWidget extends JPanel {
 		@Override
 		protected void done() {
 			try {
-				Boolean ok = get();
-				if (ok) {
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							gui.connectCallBack(ok, socket);
-						}
-					});
+				if (get()) {
+					callback.onSuccess(socket);
+				} else {
+					callback.onError("ERROR: no pudo conectarse");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

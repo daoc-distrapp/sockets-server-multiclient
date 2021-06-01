@@ -1,6 +1,7 @@
 package socketssrvmulticlient.guicliente;
 
 import java.awt.BorderLayout;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -34,24 +35,25 @@ public class GuiCliente extends JFrame {
     	this.add(sendMsgW, BorderLayout.NORTH);
         readMsgsW = new ReadMsgsWidget();
         this.add(readMsgsW, BorderLayout.CENTER);
-    	connectW = new ConnectWidget(this, SERVER, PORT); 	
+    	connectW = new ConnectWidget(SERVER, PORT, new ConnectedCallBack() {
+			@Override
+			public void onSuccess(Socket socket) {
+				try {
+					sendMsgW.initGui(new PrintWriter(socket.getOutputStream(), true));
+					readMsgsW.initGui(new Scanner(socket.getInputStream()));
+					readMsgsW.addMsg("Conectado con server");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			@Override
+			public void onError(String error) {
+				readMsgsW.addMsg(error);
+			}
+		}); 	
     	this.add(connectW, BorderLayout.WEST);    	   	
         this.pack();
         this.setVisible(true);
 	}		
-    
-	public void connectCallBack(Boolean ok, Socket socket) {
-		try {
-			if(ok) {
-				sendMsgW.initGui(new PrintWriter(socket.getOutputStream(), true));
-				readMsgsW.initGui(new Scanner(socket.getInputStream()));
-				readMsgsW.addMsg("Conectado con server");
-			} else {
-				readMsgsW.addMsg("ERROR: no pudo conectarse");
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 }
