@@ -1,6 +1,15 @@
 # sockets-server-multiclient
 Ejemplo de servidor Sockets TCP para múltiples clientes con varios hilos
 
+- socketssrvmulticlient.MainServer
+
+También hay ejemplos para...
+
+- cliente de consola: socketssrvmulticlient.MainCliente
+- cliente Swing: socketssrvmulticlient.guiciente.GuiCliente
+
+## Docker
+
 Para crear una imagen Docker con el programa y ejecutar el servidor:
 
 - en una consola vaya al subdirectorio bin (después de haber ejecutado el programa al menos una vez para tener ya las clases compiladas)
